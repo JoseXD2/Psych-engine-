@@ -1383,21 +1383,21 @@ class PlayState extends MusicBeatState
 		
 		for (folder in foldersToCheck)
 		{
-			if(FileSystem.exists(folder))
+			if(HSys.exists(folder))
 			{
 				var frag:String = folder + name + '.frag';
 				var vert:String = folder + name + '.vert';
 				var found:Bool = false;
-				if(FileSystem.exists(frag))
+				if(HSys.exists(frag))
 				{
-					frag = File.getContent(frag);
+					frag = HSys.getContent(frag);
 					found = true;
 				}
 				else frag = null;
 
-				if (FileSystem.exists(vert))
+				if (HSys.exists(vert))
 				{
-					vert = File.getContent(vert);
+					vert = HSys.getContent(vert);
 					found = true;
 				}
 				else vert = null;
