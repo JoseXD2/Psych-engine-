@@ -1194,27 +1194,26 @@ class PlayState extends MusicBeatState
 		eventPushedMap.clear();
 		eventPushedMap = null;
 
-		// SONG SPECIFIC SCRIPTS
 		#if LUA_ALLOWED
-		var filesPushed:Array<String> = [];
-		var foldersToCheck:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/';
+		var doPush:Bool = false;
 
-		
-		for (folder in foldersToCheck)
+		if(openfl.utils.Assets.exists("assets/data/" + Paths.formatToSongPath(SONG.song) + '/'))
 		{
-			if(Assets.exists(folder))
-			{
-				for (file in HSys.readDirectory(folder))
-				{
-					if(file.endsWith('.lua') && !filesPushed.contains(file))
-					{
-						luaArray.push(new FunkinLua(Asset2File.getPath(folder + file)));
-						filesPushed.push(file);
-					}
-				}
-			}
+			var path = Paths.luaAsset("data/" + Paths.formatToSongPath(SONG.song) + '/');
+			var luaFile = openfl.Assets.getBytes(path);
+
+			FileSystem.createDirectory(Main.path + "assets/data");
+			FileSystem.createDirectory(Main.path + "assets/data/");
+			FileSystem.createDirectory(Main.path + "assets/data/" + Paths.formatToSongPath(SONG.song));
+																				  
+
+			File.saveBytes(Paths.lua("data/" + Paths.formatToSongPath(SONG.song) + '/'), luaFile);
+
+			doPush = true;
 		}
-		#end
+		if(doPush) 
+			luaArray.push(new FunkinLua(Paths.lua("data/" + Paths.formatToSongPath(SONG.song) + '/')));
+		#end	
 
 		var daSong:String = Paths.formatToSongPath(curSong);
 		if (isStoryMode && !seenCutscene)
