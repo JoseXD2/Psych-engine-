@@ -1197,7 +1197,7 @@ class PlayState extends MusicBeatState
 		// SONG SPECIFIC SCRIPTS
 		#if LUA_ALLOWED
 		var filesPushed:Array<String> = [];
-		var foldersToCheck:Array<String> = [Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')];
+		var foldersToCheck:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/';
 
 		
 		for (folder in foldersToCheck)
